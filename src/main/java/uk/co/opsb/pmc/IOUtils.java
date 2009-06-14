@@ -147,6 +147,10 @@ public class IOUtils {
 		}
 	}
 	
+	public static File fileFrom(String name, Class<? extends Object> classInSamePackage) {
+		return new File(classInSamePackage.getResource(name).getFile());
+	}
+	
 	private static int copy(InputStream in, OutputStream out) throws IOException {
 		try {
 			int byteCount = 0;

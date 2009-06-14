@@ -24,7 +24,7 @@ public class IOUtilsSpec {
 	private static final String FILE_LOCATION = "res:" + CLASSPATH_LOCATION;
 	private static final String PROPERTIES_LOCATION = "res:uk/co/opsb/pmc/some.properties";
 	private static final File FILE = fileFrom(CLASSPATH_LOCATION);
-	private String text = textFrom(getClass().getResource("text_file.txt").getFile());
+
 	@Test
 	public void shouldReadTextFromVfsLocation() {
 		assertThat( textFrom( FILE_LOCATION ), equalTo(FILE_CONTENTS) );
@@ -101,5 +101,11 @@ public class IOUtilsSpec {
 	public void shouldReadUtf8FromFileInCurrentPackage() {
 		assertThat(utf8From(FILE_NAME, IOUtilsSpec.class), equalTo(FILE_CONTENTS));
 	}
+	
+	@Test
+	public void shouldReadFileFromCurrentPackage() {
+		assertTrue("Expected a file", fileFrom(FILE_NAME, IOUtilsSpec.class) instanceof File);
+	}
+	
 	
 }
