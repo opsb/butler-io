@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static uk.co.opsb.pmc.IOUtils.bytesFrom;
 import static uk.co.opsb.pmc.IOUtils.textFrom;
+import static uk.co.opsb.pmc.IOUtils.utf8From;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -35,6 +36,12 @@ public class IOUtilsSpec {
 	public void shouldReadTextFromInputStream() {
 		InputStream in = new ByteArrayInputStream(FILE_CONTENTS.getBytes());
 		assertThat( textFrom(in), equalTo(FILE_CONTENTS));
+	}
+	
+	@Test
+	public void shouldReadUtf8FromInputStream() {
+		InputStream in = new ByteArrayInputStream(FILE_CONTENTS.getBytes());
+		assertThat( utf8From(in), equalTo(FILE_CONTENTS));
 	}
 	
 }

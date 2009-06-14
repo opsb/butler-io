@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.vfs.FileContent;
 import org.apache.commons.vfs.FileObject;
@@ -41,6 +42,14 @@ public class IOUtils {
 	
 	public static String textFrom(InputStream inputStream) {
 		return new String(bytesFrom(inputStream));
+	}
+	
+	public static String utf8From(InputStream inputStream) {
+		try {
+			return new String(bytesFrom(inputStream), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public static String textFrom(String location) {
