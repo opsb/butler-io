@@ -47,16 +47,20 @@ public class IOUtils {
 		return new String(bytesFrom(inputStream));
 	}
 	
+	public static String textFrom(String location) {
+		return new String(bytesFrom(location));
+	}
+	
+	public static String textFrom(File file) {
+		return new String(bytesFrom(file));
+	}
+	
 	public static String utf8From(InputStream inputStream) {
 		try {
 			return new String(bytesFrom(inputStream), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
 		}
-	}
-	
-	public static String textFrom(String location) {
-		return new String(bytesFrom(location));
 	}
 	
 	public static String utf8From(String location) {
