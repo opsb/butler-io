@@ -2,6 +2,8 @@ package uk.co.opsb.pmc;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -77,6 +79,14 @@ public class IOUtils {
 	
 	public static byte [] bytesFrom(String location) {
 		return bytesFrom( inputStreamFrom( location ) );
+	}
+	
+	public static byte [] bytesFrom(File file) {
+		try {
+			return bytesFrom( new FileInputStream( file ) );
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public static InputStream inputStreamFrom(String location) {

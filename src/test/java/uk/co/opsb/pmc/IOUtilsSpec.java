@@ -18,6 +18,7 @@ public class IOUtilsSpec {
 	private static final String FILE_CONTENTS = "some test text";
 	private static final String CLASSPATH_LOCATION = "uk/co/opsb/pmc/text_file.txt";
 	private static final String FILE_LOCATION = "res:" + CLASSPATH_LOCATION;
+	private static final File FILE = fileFrom(CLASSPATH_LOCATION);
 	
 	@Test
 	public void shouldReadTextFromVfsLocation() {
@@ -55,6 +56,11 @@ public class IOUtilsSpec {
 	@Test
 	public void shouldReadFileFromClasspath() {
 		assertTrue( "Expected a file", fileFrom(CLASSPATH_LOCATION) instanceof File);
+	}
+	
+	@Test
+	public void shouldReadBytesFromFile() {
+		assertThat(bytesFrom(FILE), equalTo(FILE_CONTENTS.getBytes()));
 	}
 	
 }
