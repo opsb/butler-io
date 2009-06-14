@@ -4,13 +4,14 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static uk.co.opsb.pmc.IOUtils.bytesFrom;
-import static uk.co.opsb.pmc.IOUtils.fileFrom;
+import static uk.co.opsb.pmc.IOUtils.*;
 import static uk.co.opsb.pmc.IOUtils.textFrom;
 import static uk.co.opsb.pmc.IOUtils.utf8From;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.util.Properties;
 
 import org.junit.Test;
 
@@ -19,6 +20,7 @@ public class IOUtilsSpec {
 	private static final String FILE_CONTENTS = "some test text";
 	private static final String CLASSPATH_LOCATION = "uk/co/opsb/pmc/text_file.txt";
 	private static final String FILE_LOCATION = "res:" + CLASSPATH_LOCATION;
+	private static final String PROPERTIES_LOCATION = "res:uk/co/opsb/pmc/some.properties";
 	private static final File FILE = fileFrom(CLASSPATH_LOCATION);
 	
 	@Test
@@ -72,6 +74,15 @@ public class IOUtilsSpec {
 	@Test
 	public void shouldReadUtf8FromFile() {
 		assertThat(utf8From(FILE), equalTo(FILE_CONTENTS));
+	}
+	
+	@Test
+	public void shouldReadPropertiesFromVfsLocation() {
+		Properties properties = new Properties();
+		properties.put("name", "jim");
+		properties.put("age", "23");
+		properties.put("height", "153cm");
+		assertThat(propertiesFrom(PROPERTIES_LOCATION), equalTo(properties));
 	}
 	
 }

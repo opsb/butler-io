@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Properties;
 
 import org.apache.commons.vfs.FileContent;
 import org.apache.commons.vfs.FileObject;
@@ -104,6 +105,16 @@ public class IOUtils {
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public static Properties propertiesFrom(String location) {
+		Properties properties = new Properties();
+		try {
+			properties.load(inputStreamFrom(location));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return properties;
 	}
 	
 	public static InputStream inputStreamFrom(String location) {
