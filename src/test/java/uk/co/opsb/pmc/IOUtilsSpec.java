@@ -5,6 +5,9 @@ import static org.junit.Assert.assertThat;
 import static uk.co.opsb.pmc.IOUtils.bytesFrom;
 import static uk.co.opsb.pmc.IOUtils.textFrom;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import org.junit.Test;
 
 public class IOUtilsSpec {
@@ -20,6 +23,12 @@ public class IOUtilsSpec {
 	@Test
 	public void shouldReadBytesFromVfsLocation() {
 		assertThat( bytesFrom( FILE_LOCATION ), equalTo(FILE_CONTENTS.getBytes()) );
+	}
+	
+	@Test
+	public void shouldReadBytesFromInputStream() {
+		InputStream in = new ByteArrayInputStream(FILE_CONTENTS.getBytes());
+		assertThat( bytesFrom( in ), equalTo( FILE_CONTENTS.getBytes() ));
 	}
 	
 }

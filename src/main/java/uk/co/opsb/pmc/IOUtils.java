@@ -43,14 +43,18 @@ public class IOUtils {
 		return new String(bytesFrom(location));
 	}
 	
-	public static byte [] bytesFrom(String location) {
+	public static byte [] bytesFrom(InputStream inputStream) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream(BUFFER_SIZE);
 		try {
-			copy(inputStreamFrom(location), out);
+			copy(inputStream, out);
 			return out.toByteArray();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public static byte [] bytesFrom(String location) {
+		return bytesFrom( inputStreamFrom( location ) );
 	}
 	
 	public static InputStream inputStreamFrom(String location) {
