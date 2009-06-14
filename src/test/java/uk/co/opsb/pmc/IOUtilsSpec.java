@@ -97,4 +97,9 @@ public class IOUtilsSpec {
 		assertThat(textFrom(FILE_NAME, IOUtilsSpec.class), equalTo(FILE_CONTENTS));
 	}
 	
+	@Test
+	public void shouldReadUtf8FromFileInCurrentPackage() {
+		assertThat(utf8From(FILE_NAME, IOUtilsSpec.class), equalTo(FILE_CONTENTS));
+	}
+	
 }

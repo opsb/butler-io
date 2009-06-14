@@ -91,6 +91,10 @@ public class IOUtils {
 		}
 	}
 	
+	public static String utf8From(String name, Class<? extends Object> classInSamePackage) {
+		return utf8From(classInSamePackage.getResourceAsStream(name));
+	}
+	
 	public static byte [] bytesFrom(InputStream inputStream) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream(BUFFER_SIZE);
 		try {
