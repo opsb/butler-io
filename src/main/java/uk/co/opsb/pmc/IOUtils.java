@@ -63,6 +63,10 @@ public class IOUtils {
 		return new String(bytesFrom(file));
 	}
 	
+	public static String textFrom(String name, Class<? extends Object> classInSamePackage) {
+		return textFrom(classInSamePackage.getResourceAsStream(name));
+	}
+	
 	public static String utf8From(File file) {
 		try {
 			return new String(bytesFrom(file), "UTF-8");
