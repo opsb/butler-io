@@ -19,12 +19,17 @@ public class IOUtils {
 
 	public static final int BUFFER_SIZE = 4096;
 	
+	private static FileSystemManager fileSystemManager;
+	
 	private static FileSystemManager getFsManager() {
 		try {
-			return VFS.getManager();
+			if (fileSystemManager == null) {
+				fileSystemManager = VFS.getManager();
+			}
 		} catch (FileSystemException e) {
 			throw new RuntimeException(e);
 		}
+		return fileSystemManager;
 	}
 	
 	private static FileObject resolveFile(String location) {
