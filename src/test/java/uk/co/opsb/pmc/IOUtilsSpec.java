@@ -3,7 +3,8 @@ package uk.co.opsb.pmc;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static uk.co.opsb.pmc.IOUtils.*;
+import static uk.co.opsb.pmc.IOUtils.bytesFrom;
+import static uk.co.opsb.pmc.IOUtils.fileFrom;
 import static uk.co.opsb.pmc.IOUtils.textFrom;
 import static uk.co.opsb.pmc.IOUtils.utf8From;
 
@@ -66,6 +67,11 @@ public class IOUtilsSpec {
 	@Test
 	public void shouldReadTextFromFile() {
 		assertThat(textFrom(FILE), equalTo(FILE_CONTENTS));
+	}
+	
+	@Test
+	public void shouldReadUtf8FromFile() {
+		assertThat(utf8From(FILE), equalTo(FILE_CONTENTS));
 	}
 	
 }

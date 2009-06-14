@@ -55,6 +55,14 @@ public class IOUtils {
 		return new String(bytesFrom(file));
 	}
 	
+	public static String utf8From(File file) {
+		try {
+			return new String(bytesFrom(file), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public static String utf8From(InputStream inputStream) {
 		try {
 			return new String(bytesFrom(inputStream), "UTF-8");
