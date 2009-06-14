@@ -1,6 +1,7 @@
 package uk.co.opsb.pmc;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -81,6 +82,14 @@ public class IOUtils {
 	public static InputStream inputStreamFrom(String location) {
 		try {
 			return getFileContent(location).getInputStream();
+		} catch (FileSystemException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public static File fileFrom(String classpathLocation) {
+		try {
+			return new File(resolveFile("res:" + classpathLocation).getURL().getFile());
 		} catch (FileSystemException e) {
 			throw new RuntimeException(e);
 		}
