@@ -44,4 +44,9 @@ public class IOUtilsSpec {
 		assertThat( utf8From(in), equalTo(FILE_CONTENTS));
 	}
 	
+	@Test
+	public void shouldReadUtf8FromVfsLocation() {
+		assertThat( utf8From(FILE_LOCATION), equalTo(FILE_CONTENTS));
+	}
+	
 }

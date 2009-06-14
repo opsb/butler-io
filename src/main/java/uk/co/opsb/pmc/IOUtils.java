@@ -56,6 +56,14 @@ public class IOUtils {
 		return new String(bytesFrom(location));
 	}
 	
+	public static String utf8From(String location) {
+		try {
+			return new String(bytesFrom(location), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public static byte [] bytesFrom(InputStream inputStream) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream(BUFFER_SIZE);
 		try {
