@@ -39,6 +39,10 @@ public class IOUtils {
 		} 
 	}
 	
+	public static String textFrom(InputStream inputStream) {
+		return new String(bytesFrom(inputStream));
+	}
+	
 	public static String textFrom(String location) {
 		return new String(bytesFrom(location));
 	}

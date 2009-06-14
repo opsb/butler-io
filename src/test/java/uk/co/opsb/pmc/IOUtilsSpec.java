@@ -31,4 +31,10 @@ public class IOUtilsSpec {
 		assertThat( bytesFrom( in ), equalTo( FILE_CONTENTS.getBytes() ));
 	}
 	
+	@Test
+	public void shouldReadTextFromInputStream() {
+		InputStream in = new ByteArrayInputStream(FILE_CONTENTS.getBytes());
+		assertThat( textFrom(in), equalTo(FILE_CONTENTS));
+	}
+	
 }
