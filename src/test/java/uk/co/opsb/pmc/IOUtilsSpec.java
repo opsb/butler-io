@@ -4,7 +4,8 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static uk.co.opsb.pmc.IOUtils.bytesFrom;
-import static uk.co.opsb.pmc.IOUtils.*;
+import static uk.co.opsb.pmc.IOUtils.fileFrom;
+import static uk.co.opsb.pmc.IOUtils.propertiesFrom;
 import static uk.co.opsb.pmc.IOUtils.textFrom;
 import static uk.co.opsb.pmc.IOUtils.utf8From;
 
@@ -18,11 +19,12 @@ import org.junit.Test;
 public class IOUtilsSpec {
 
 	private static final String FILE_CONTENTS = "some test text";
-	private static final String CLASSPATH_LOCATION = "uk/co/opsb/pmc/text_file.txt";
+	private static final String FILE_NAME = "text_file.txt";
+	private static final String CLASSPATH_LOCATION = "uk/co/opsb/pmc/" + FILE_NAME;
 	private static final String FILE_LOCATION = "res:" + CLASSPATH_LOCATION;
 	private static final String PROPERTIES_LOCATION = "res:uk/co/opsb/pmc/some.properties";
 	private static final File FILE = fileFrom(CLASSPATH_LOCATION);
-	
+	private String text = textFrom(getClass().getResource("text_file.txt").getFile());
 	@Test
 	public void shouldReadTextFromVfsLocation() {
 		assertThat( textFrom( FILE_LOCATION ), equalTo(FILE_CONTENTS) );
@@ -84,5 +86,12 @@ public class IOUtilsSpec {
 		properties.put("height", "153cm");
 		assertThat(propertiesFrom(PROPERTIES_LOCATION), equalTo(properties));
 	}
+	
+	@Test
+	public void shouldReadBytesFromFileInCurrentPackage() {
+		assertThat(bytesFrom(FILE_NAME, IOUtilsSpec.class), equalTo(FILE_CONTENTS.getBytes()));
+	}
+	
+	
 	
 }
