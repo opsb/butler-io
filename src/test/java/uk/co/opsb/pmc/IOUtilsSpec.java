@@ -16,4 +16,9 @@ public class IOUtilsSpec {
 		assertThat( textFrom( FILE_LOCATION ), equalTo(FILE_CONTENTS) );
 	}
 	
+	@Test
+	public void shouldReadBytes() {
+		assertThat( bytesFrom( FILE_LOCATION ), equalTo(FILE_CONTENTS.getBytes()) );
+	}
+	
 }
