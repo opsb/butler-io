@@ -107,5 +107,4 @@ public class IOUtilsSpec {
 		assertTrue("Expected a file", fileFrom(FILE_NAME, IOUtilsSpec.class) instanceof File);
 	}
 	
-	
 }

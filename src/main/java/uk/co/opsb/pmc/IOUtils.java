@@ -1,7 +1,5 @@
 package uk.co.opsb.pmc;
 
-import static uk.co.opsb.pmc.IOUtils.textFrom;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -118,7 +116,7 @@ public class IOUtils {
 	}
 	
 	public static byte [] bytesFrom(String name, Class<? extends Object> classInSamePackage) {
-		return bytesFrom(classInSamePackage.getResourceAsStream("text_file.txt"));
+		return bytesFrom(classInSamePackage.getResourceAsStream(name));
 	}
 	
 	public static Properties propertiesFrom(String location) {
