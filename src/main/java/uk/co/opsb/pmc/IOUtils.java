@@ -33,17 +33,17 @@ public class IOUtils {
 		return fileSystemManager;
 	}
 	
-	private static FileObject resolveFile(String location) {
+	private static FileObject resolveFile(String vfsLocation) {
 		try {
-			return getFsManager().resolveFile(location);
+			return getFsManager().resolveFile(vfsLocation);
 		} catch (FileSystemException e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
-	private static FileContent getFileContent(String location) {
+	private static FileContent getFileContent(String vfsLocation) {
 		try {
-			return resolveFile(location).getContent();
+			return resolveFile(vfsLocation).getContent();
 		} catch (FileSystemException e) {
 			throw new RuntimeException(e);
 		} 
@@ -53,8 +53,8 @@ public class IOUtils {
 		return new String(bytesFrom(inputStream));
 	}
 	
-	public static String textFrom(String location) {
-		return new String(bytesFrom(location));
+	public static String textFrom(String vfsLocation) {
+		return new String(bytesFrom(vfsLocation));
 	}
 	
 	public static String textFrom(File file) {
@@ -81,9 +81,9 @@ public class IOUtils {
 		}
 	}
 	
-	public static String utf8From(String location) {
+	public static String utf8From(String vfsLocation) {
 		try {
-			return new String(bytesFrom(location), "UTF-8");
+			return new String(bytesFrom(vfsLocation), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
 		}
@@ -103,8 +103,8 @@ public class IOUtils {
 		}
 	}
 	
-	public static byte [] bytesFrom(String location) {
-		return bytesFrom( inputStreamFrom( location ) );
+	public static byte [] bytesFrom(String vfsLocation) {
+		return bytesFrom( inputStreamFrom( vfsLocation ) );
 	}
 	
 	public static byte [] bytesFrom(File file) {
@@ -119,19 +119,19 @@ public class IOUtils {
 		return bytesFrom(classInSamePackage.getResourceAsStream(name));
 	}
 	
-	public static Properties propertiesFrom(String location) {
+	public static Properties propertiesFrom(String vfsLocation) {
 		Properties properties = new Properties();
 		try {
-			properties.load(inputStreamFrom(location));
+			properties.load(inputStreamFrom(vfsLocation));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 		return properties;
 	}
 	
-	public static InputStream inputStreamFrom(String location) {
+	public static InputStream inputStreamFrom(String vfsLocation) {
 		try {
-			return getFileContent(location).getInputStream();
+			return getFileContent(vfsLocation).getInputStream();
 		} catch (FileSystemException e) {
 			throw new RuntimeException(e);
 		}
