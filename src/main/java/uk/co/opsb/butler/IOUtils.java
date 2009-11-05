@@ -8,7 +8,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.vfs.FileContent;
 import org.apache.commons.vfs.FileObject;
@@ -18,9 +22,18 @@ import org.apache.commons.vfs.VFS;
 
 public class IOUtils {
 
+	private static final String PROTOCOL_REGEX = "^(.*):";
+
+	private static final Pattern PROTOCOL_MATCHER = Pattern.compile(PROTOCOL_REGEX);
+
 	public static final int BUFFER_SIZE = 4096;
 	
 	private static FileSystemManager fileSystemManager;
+
+	private static Map<String, String> aliases = new HashMap<String, String>();
+	static {
+		alias("res", "classpath");
+	}
 	
 	private static FileSystemManager getFsManager() {
 		try {
@@ -34,13 +47,32 @@ public class IOUtils {
 	}
 	
 	private static FileObject resolveFile(String vfsLocation) {
+		
 		try {
-			return getFsManager().resolveFile(vfsLocation);
+			return getFsManager().resolveFile(withResolvedAlias(vfsLocation));
 		} catch (FileSystemException e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
+	private static String withResolvedAlias(String vfsLocation) {
+		String protocol = protocolUsedIn(vfsLocation);
+		
+		if (aliases.containsKey(protocol)) {
+			String original = aliases.get(protocol);
+			vfsLocation = vfsLocation.replaceFirst(PROTOCOL_REGEX, original + ":");
+		}
+		 
+		return vfsLocation;
+	}
+
+	private static String protocolUsedIn(String vfsLocation) {
+		Matcher matcher = PROTOCOL_MATCHER.matcher(vfsLocation);
+		if (!matcher.find()) throw new IllegalArgumentException("No protocol found");
+		String protocol = matcher.group(1);
+		return protocol;
+	}
+
 	private static FileContent getFileContent(String vfsLocation) {
 		try {
 			return resolveFile(vfsLocation).getContent();
@@ -173,6 +205,10 @@ public class IOUtils {
 			catch (IOException ex) {
 			}
 		}
+	}
+
+	public static void alias(String original, String alias) {
+		aliases.put(alias, original);
 	}	
 	
 }

@@ -107,4 +107,15 @@ public class IOUtilsSpec {
 		assertTrue("Expected a file", fileFrom(FILE_NAME, IOUtilsSpec.class) instanceof File);
 	}
 	
+	@Test
+	public void shouldResolveAliasesForVfsProtocol() {
+		IOUtils.alias("res", "classpath_location");
+		assertThat(utf8From("classpath_location:" + CLASSPATH_LOCATION), equalTo(EXPECTED_FILE_CONTENTS));
+	}
+	
+	@Test
+	public void shouldResolveClasspathAlias() {
+		assertThat(utf8From("classpath:" + CLASSPATH_LOCATION), equalTo(EXPECTED_FILE_CONTENTS));
+	}
+	
 }
