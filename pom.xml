@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>uk.co.opsb</groupId>
-	<artifactId>pimp_my_code</artifactId>
+	<artifactId>butler-io</artifactId>
 	<packaging>jar</packaging>
 	<version>0.1-SNAPSHOT</version>
-	<name>pimp_my_code</name>
+	<name>butler-io</name>
 	<url>http://maven.apache.org</url>
 	<build>
 		<plugins>
