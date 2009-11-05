@@ -1,0 +1,39 @@
+Sources
+
+<vfs>
+FTP
+Local Files
+HTTP and HTTPS
+SFTP
+Temporary Files
+Zip, Jar and Tar (uncompressed, tgz or tbz2)
+gzip and bzip2
+res
+ram
+mime
+(WebDAV) 
+(CIFS)
+(mime)
+
+<other>
+inputstream
+bytes
+string
+
+
+Outputs
+
+US-ASCII
+ISO-8859-1
+UTF-8
+UTF-16BE
+UTF-16LE
+UTF-16
+bytes
+text
+inputstream
+file
+
+
+
+
