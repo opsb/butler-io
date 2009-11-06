@@ -155,6 +155,10 @@ public class ButlerIO {
 		return propertiesFrom(inputStreamFrom(vfsLocation));
 	}
 	
+	public static Properties propertiesFrom(File file) {
+		return propertiesFrom(inputStreamFrom(file));
+	}
+	
 	public static Properties propertiesFrom(InputStream inputStream) {
 		Properties properties = new Properties();
 		try {
@@ -169,6 +173,14 @@ public class ButlerIO {
 		try {
 			return getFileContent(vfsLocation).getInputStream();
 		} catch (FileSystemException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public static InputStream inputStreamFrom(File file) {
+		try {
+			return new FileInputStream(file);
+		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		}
 	}
