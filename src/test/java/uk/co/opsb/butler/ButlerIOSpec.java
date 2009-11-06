@@ -4,7 +4,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static uk.co.opsb.butler.ButlerIO.bytesFrom;
-import static uk.co.opsb.butler.ButlerIO.fileFrom;
+import static uk.co.opsb.butler.ButlerIO.fileAt;
 import static uk.co.opsb.butler.ButlerIO.propertiesFrom;
 import static uk.co.opsb.butler.ButlerIO.textFrom;
 import static uk.co.opsb.butler.ButlerIO.utf8From;
@@ -23,7 +23,7 @@ public class ButlerIOSpec {
 	private static final String CLASSPATH_LOCATION = "uk/co/opsb/butler/" + FILE_NAME;
 	private static final String VFS_LOCATION = "res:" + CLASSPATH_LOCATION;
 	private static final String PROPERTIES_LOCATION = "res:uk/co/opsb/butler/some.properties";
-	private static final File FILE = fileFrom(CLASSPATH_LOCATION);
+	private static final File FILE = fileAt(CLASSPATH_LOCATION);
 
 	@Test
 	public void shouldReadTextFromVfsLocation() {
@@ -60,7 +60,7 @@ public class ButlerIOSpec {
 	
 	@Test
 	public void shouldReadFileFromClasspath() {
-		assertTrue( "Expected a file", fileFrom(CLASSPATH_LOCATION).isFile());
+		assertTrue( "Expected a file", fileAt(CLASSPATH_LOCATION).isFile());
 	}
 	
 	@Test
@@ -104,7 +104,7 @@ public class ButlerIOSpec {
 	
 	@Test
 	public void shouldReadFileFromCurrentPackage() {
-		assertTrue("Expected a file", fileFrom(FILE_NAME, ButlerIOSpec.class) instanceof File);
+		assertTrue("Expected a file", fileAt(FILE_NAME, ButlerIOSpec.class) instanceof File);
 	}
 	
 	@Test

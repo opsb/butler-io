@@ -185,7 +185,7 @@ public class ButlerIO {
 		}
 	}
 	
-	public static File fileFrom(String classpathLocation) {
+	public static File fileAt(String classpathLocation) {
 		try {
 			return new File(resolveFile("res:" + classpathLocation).getURL().getFile());
 		} catch (FileSystemException e) {
@@ -193,7 +193,7 @@ public class ButlerIO {
 		}
 	}
 	
-	public static File fileFrom(String name, Class<? extends Object> classInSamePackage) {
+	public static File fileAt(String name, Class<? extends Object> classInSamePackage) {
 		return new File(classInSamePackage.getResource(name).getFile());
 	}
 	
