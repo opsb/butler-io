@@ -68,7 +68,7 @@ public class ButlerIO {
 
 	private static String protocolUsedIn(String vfsLocation) {
 		Matcher matcher = PROTOCOL_MATCHER.matcher(vfsLocation);
-		if (!matcher.find()) throw new IllegalArgumentException("No protocol found");
+		if (!matcher.find()) throw new IllegalArgumentException("No protocol found for location " + vfsLocation);
 		String protocol = matcher.group(1);
 		return protocol;
 	}
