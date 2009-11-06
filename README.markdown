@@ -1,7 +1,27 @@
+Butler IO
+============
+
+Some of those IO tasks can simply be the height of tedium. Why not ask the butler to take care of it? He's rather clever don't you know, he even understands a thing or two about that [apache VFS](http://commons.apache.org/vfs/ "apache VFS").
+
+Butler can fetch
+
+* byte []
+* String
+* String in utf8
+* InputStream
+* File
+
+from
+
+* VFS locations - allows loading from any of; local files, http, https, ftp, sftp, temporary files, zip, jar, tar, gzip, bzip2, res, ram, mime. Take a look at [some examples](http://commons.apache.org/vfs/filesystems.html "VFS examples").
+* InputStreams
+* Files
+* File in same package as a Class
+
 Installation
 ------------
 
-### Maven repo
+#### Maven repo
 
     <repository>
     	<id>opsbreleases</id>
@@ -9,7 +29,7 @@ Installation
     	<url>http://opsb.co.uk/nexus/content/repositories/releases/</url>
     </repository>
 
-### Dependency
+#### Dependency
 
     <dependency>
       <groupId>uk.co.opsb</groupId>
@@ -17,62 +37,68 @@ Installation
       <version>0.1-SNAPSHOT</version>
     </dependency>
 
-### Introduction
+Usage
+-----
 
-Some of those IO tasks can simply be the height of tedium. Why not ask the butler to take care of it? He's rather clever don't you know, he even understands a thing or two about that apache VFS.
-
-Let's put him through his paces. First let's call for the butler:
+First let's call for the butler:
 
     import static uk.co.opsb.butler.ButlerIO.*;
 
+Now let's put him to task
+
 ### Fetching text
-    
-#### From the classpath    
-    
-    String article = textFrom("res:articles/steve_jobs.txt");
-    
-#### UTF8 from an absolute file path
-    
-    String article_utf8 = utf8From("file:///path/to/steve_jobs.txt");
-    
-or on windows
 
-    String article_utf8 = utf8From("file:///c:/path/to/steve_jobs.txt");
-    
-#### Over the wire    
-
-    String article = textFrom("https://username:password@domain_name.com/article.txt");
-    
-#### From a zip
-
-    String article = textFrom("zip:https://username:password@domain_name.com/article.txt.zip");
-  
-#### From an InputStream
-
-    String article = textFrom(inputStream);
-    
-#### From a file
-
-    String article = textFrom(file);
-  
-The full list of VFS protocols includes local files, http, https, ftp, sftp, temporary files, zip, jar, tar, gzip, bzip2, res, ram, mime. Take a look at [some examples](http://commons.apache.org/vfs/filesystems.html "VFS examples").
+    String fromClasspath          = textFrom( "res:articles/steve_jobs.txt" );
+    String fromUtf8File           = utf8From( "file:///path/to/steve_jobs.txt" );
+    String fromUtf8FileOnWindows  = utf8From( "file:///c:/path/to/steve_jobs.txt" );
+    String fromInputStream        = textFrom( inputStream );
+    String overHttpsUsingVfs      = textFrom( "https://username:password@domain_name.com/article.txt" );
+    String fromFtpZipUsingVfs     = textFrom( "zip:ftp://username:password@domain_name.com/file.txt.zip" );
+    String fromFileNextToClass    = textFrom( "name_of_file_in_same_package_as", YourClass.class );
 
 ### Fetching bytes
 
-    byte [] articleBytes = bytesFrom("res:articles/steve_jobs.txt");
-
+    byte [] fromClasspath          = bytesFrom( "res:articles/steve_jobs.txt" );
+    byte [] fromUtf8File           = bytesFrom( "file:///path/to/steve_jobs.txt" );
+    byte [] fromUtf8FileOnWindows  = bytesFrom( "file:///c:/path/to/steve_jobs.txt" );
+    byte [] fromInputStream        = bytesFrom( inputStream );
+    byte [] overHttpsUsingVfs      = bytesFrom( "https://username:password@domain_name.com/article.txt" );
+    byte [] fromFtpZipUsingVfs     = bytesFrom( "zip:ftp://username:password@domain_name.com/file.txt.zip" );   
+    byte [] fromFileNextToClass    = bytesFrom( "name_of_file_in_same_package_as", YourClass.class );     
+    
 ### Fetching properties
 
-    Properties config = propertiesFrom("res:config.props");
+    Properties fromClasspath          = propertiesFrom( "res:articles/steve_jobs.txt" );
+    Properties fromUtf8File           = propertiesFrom( "file:///path/to/steve_jobs.txt" );
+    Properties fromUtf8FileOnWindows  = propertiesFrom( "file:///c:/path/to/steve_jobs.txt" );
+    Properties fromInputStream        = propertiesFrom( inputStream );
+    Properties overHttpsUsingVfs      = propertiesFrom( "https://username:password@domain_name.com/article.txt" );
+    Properties fromFtpZipUsingVfs     = propertiesFrom( "zip:ftp://username:password@domain_name.com/file.txt.zip" );   
+    Properties fromFileNextToClass    = propertiesFrom( "name_of_file_in_same_package_as", YourClass.class );    
 
-### Aliases
+### Opening an InputStream
 
-Perhaps you've gotten used to using classpath:path/to/file with spring? Why not add an alias the res: protocol that VFS uses to classpath:
+    InputStream fromClasspath          = inputStreamFrom( "res:articles/steve_jobs.txt" );
+    InputStream fromUtf8File           = inputStreamFrom( "file:///path/to/steve_jobs.txt" );
+    InputStream fromUtf8FileOnWindows  = inputStreamFrom( "file:///c:/path/to/steve_jobs.txt" );
+    InputStream fromInputStream        = inputStreamFrom( inputStream );
+    InputStream overHttpsUsingVfs      = inputStreamFrom( "https://username:password@domain_name.com/article.txt" );
+    InputStream fromFtpZipUsingVfs     = inputStreamFrom( "zip:ftp://username:password@domain_name.com/file.txt.zip" );   
+    InputStream fromFileNextToClass    = inputStreamFrom( "name_of_file_in_same_package_as", YourClass.class );    
 
-    ButlerIO.alias("res", "classpath");
+### Getting a reference to a File
+
+    File fromClasspath          = fileFrom( "res:path/to/file" );
+    File fromFileNextToClass    = fileFrom( "file_name", YourClass.class );
+
+## VFS Aliases
+
+Perhaps you've gotten used to using classpath:path/to/file with spring? Butler's here to server, simply alias the res: protocol to classpath:
+
+    ButlerIO.alias( "res", "classpath" );
     
 Now you can simply do
 
-    String article = textFrom("classpath:articles/steve_jobs.txt");
+    String article = textFrom( "classpath:articles/steve_jobs.txt" );
     
 In fact the classpath: alias comes preregistered so you don't even need to worry about adding this one.
