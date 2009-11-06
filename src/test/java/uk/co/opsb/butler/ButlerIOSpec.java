@@ -3,11 +3,11 @@ package uk.co.opsb.butler;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static uk.co.opsb.butler.IOUtils.bytesFrom;
-import static uk.co.opsb.butler.IOUtils.fileFrom;
-import static uk.co.opsb.butler.IOUtils.propertiesFrom;
-import static uk.co.opsb.butler.IOUtils.textFrom;
-import static uk.co.opsb.butler.IOUtils.utf8From;
+import static uk.co.opsb.butler.ButlerIO.bytesFrom;
+import static uk.co.opsb.butler.ButlerIO.fileFrom;
+import static uk.co.opsb.butler.ButlerIO.propertiesFrom;
+import static uk.co.opsb.butler.ButlerIO.textFrom;
+import static uk.co.opsb.butler.ButlerIO.utf8From;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -16,7 +16,7 @@ import java.util.Properties;
 
 import org.junit.Test;
 
-public class IOUtilsSpec {
+public class ButlerIOSpec {
 
 	private static final String EXPECTED_FILE_CONTENTS = "some test text";
 	private static final String FILE_NAME = "text_file.txt";
@@ -89,27 +89,27 @@ public class IOUtilsSpec {
 	
 	@Test
 	public void shouldReadBytesFromFileInCurrentPackage() {
-		assertThat(bytesFrom(FILE_NAME, IOUtilsSpec.class), equalTo(EXPECTED_FILE_CONTENTS.getBytes()));
+		assertThat(bytesFrom(FILE_NAME, ButlerIOSpec.class), equalTo(EXPECTED_FILE_CONTENTS.getBytes()));
 	}
 	
 	@Test
 	public void shouldReadTextFromFileInCurrentPackage() {
-		assertThat(textFrom(FILE_NAME, IOUtilsSpec.class), equalTo(EXPECTED_FILE_CONTENTS));
+		assertThat(textFrom(FILE_NAME, ButlerIOSpec.class), equalTo(EXPECTED_FILE_CONTENTS));
 	}
 	
 	@Test
 	public void shouldReadUtf8FromFileInCurrentPackage() {
-		assertThat(utf8From(FILE_NAME, IOUtilsSpec.class), equalTo(EXPECTED_FILE_CONTENTS));
+		assertThat(utf8From(FILE_NAME, ButlerIOSpec.class), equalTo(EXPECTED_FILE_CONTENTS));
 	}
 	
 	@Test
 	public void shouldReadFileFromCurrentPackage() {
-		assertTrue("Expected a file", fileFrom(FILE_NAME, IOUtilsSpec.class) instanceof File);
+		assertTrue("Expected a file", fileFrom(FILE_NAME, ButlerIOSpec.class) instanceof File);
 	}
 	
 	@Test
 	public void shouldResolveAliasesForVfsProtocol() {
-		IOUtils.alias("res", "classpath_location");
+		ButlerIO.alias("res", "classpath_location");
 		assertThat(utf8From("classpath_location:" + CLASSPATH_LOCATION), equalTo(EXPECTED_FILE_CONTENTS));
 	}
 	
