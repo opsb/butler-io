@@ -152,9 +152,13 @@ public class ButlerIO {
 	}
 	
 	public static Properties propertiesFrom(String vfsLocation) {
+		return propertiesFrom(inputStreamFrom(vfsLocation));
+	}
+	
+	public static Properties propertiesFrom(InputStream inputStream) {
 		Properties properties = new Properties();
 		try {
-			properties.load(inputStreamFrom(vfsLocation));
+			properties.load(inputStream);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

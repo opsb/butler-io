@@ -49,7 +49,7 @@ or on windows
   
 #### From an InputStream
 
-    String article textFrom(inputStream);
+    String article = textFrom(inputStream);
   
 The full list of VFS protocols includes local files, http, https, ftp, sftp, temporary files, zip, jar, tar, gzip, bzip2, res, ram, mime. Take a look at [some examples](http://commons.apache.org/vfs/filesystems.html "VFS examples").
 
