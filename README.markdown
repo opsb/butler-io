@@ -63,7 +63,7 @@ Now let's put him to task
     byte [] fromUtf8FileOnWindows  = bytesFrom( "file:///c:/path/to/steve_jobs.txt" );
     byte [] fromInputStream        = bytesFrom( inputStream );
     byte [] overHttpsUsingVfs      = bytesFrom( "https://username:password@domain_name.com/article.txt" );
-    byte [] fromFtpZipUsingVfs     = bytesFrom( "zip:ftp://username:password@domain_name.com/file.txt.zip" );   
+    byte [] fromSftpGzipUsingVfs   = bytesFrom( "gz:sftp://username:password@domain_name.com/file.txt.gz" );   
     byte [] fromFileNextToClass    = bytesFrom( "name_of_file_in_same_package_as", YourClass.class );     
     
 ### Fetching properties
@@ -73,7 +73,7 @@ Now let's put him to task
     Properties fromUtf8FileOnWindows  = propertiesFrom( "file:///c:/path/to/steve_jobs.txt" );
     Properties fromInputStream        = propertiesFrom( inputStream );
     Properties overHttpsUsingVfs      = propertiesFrom( "https://username:password@domain_name.com/article.txt" );
-    Properties fromFtpZipUsingVfs     = propertiesFrom( "zip:ftp://username:password@domain_name.com/file.txt.zip" );   
+    Properties fromJarUsingVfs        = propertiesFrom( "jar://username:password@domain_name.com/outer.jar!inner/file.txt" );   
     Properties fromFileNextToClass    = propertiesFrom( "name_of_file_in_same_package_as", YourClass.class );    
 
 ### Opening an InputStream
@@ -81,7 +81,6 @@ Now let's put him to task
     InputStream fromClasspath          = inputStreamFrom( "res:articles/steve_jobs.txt" );
     InputStream fromUtf8File           = inputStreamFrom( "file:///path/to/steve_jobs.txt" );
     InputStream fromUtf8FileOnWindows  = inputStreamFrom( "file:///c:/path/to/steve_jobs.txt" );
-    InputStream fromInputStream        = inputStreamFrom( inputStream );
     InputStream overHttpsUsingVfs      = inputStreamFrom( "https://username:password@domain_name.com/article.txt" );
     InputStream fromFtpZipUsingVfs     = inputStreamFrom( "zip:ftp://username:password@domain_name.com/file.txt.zip" );   
     InputStream fromFileNextToClass    = inputStreamFrom( "name_of_file_in_same_package_as", YourClass.class );    
