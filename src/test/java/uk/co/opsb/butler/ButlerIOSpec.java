@@ -124,4 +124,10 @@ public class ButlerIOSpec {
 		assertThat(utf8From("butler:" + FILE_NAME), equalTo(EXPECTED_FILE_CONTENTS));
 	}
 	
+	@Test
+	public void shouldResolveRuleBasedAliasForLocation() {
+		ButlerIO.alias("^(\\w*):", "res:uk/co/opsb/%s/");
+		assertThat(utf8From("butler:" + FILE_NAME), equalTo(EXPECTED_FILE_CONTENTS));
+	}
+	
 }

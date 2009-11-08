@@ -11,6 +11,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.vfs.FileContent;
 import org.apache.commons.vfs.FileObject;
@@ -50,13 +52,22 @@ public class ButlerIO {
 	}
 	
 	private static String withResolvedAlias(String vfsLocation) {
+
+		for (String alias : aliases.keySet()) {
 		
-		for(String alias : aliases.keySet()) {
-			System.out.println("Checking " + alias);
-			if (vfsLocation.startsWith(alias)) {
-				System.out.println("replacing " + alias + " with " + aliases.get(alias));
-				vfsLocation = vfsLocation.replaceFirst(alias, aliases.get(alias));
+			Matcher matcher = Pattern.compile(alias).matcher(vfsLocation);
+			if (matcher.find()) {
+	
+				Object [] groups = new String[matcher.groupCount()];
+				for(int i = 0; i < matcher.groupCount(); i++) {
+					groups[i] = matcher.group(i + 1);
+				}
+				
+				String withAliasResolved = String.format(vfsLocation.replaceFirst(alias, aliases.get(alias)), groups);
+				return withAliasResolved;
+			
 			}
+		
 		}
 		
 		return vfsLocation;
@@ -217,5 +228,9 @@ public class ButlerIO {
 	public static void alias(String original, String replacement) {
 		aliases.put(original, replacement);
 	}	
+	
+	static void clearAliases() {
+		aliases.clear();
+	}
 	
 }
