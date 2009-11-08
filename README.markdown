@@ -34,7 +34,7 @@ Installation
     <dependency>
       <groupId>uk.co.opsb</groupId>
       <artifactId>butler-io</artifactId>
-      <version>0.1-SNAPSHOT</version>
+      <version>0.2</version>
     </dependency>
 
 Usage
