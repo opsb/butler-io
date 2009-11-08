@@ -111,5 +111,4 @@ Not bad, he can do better than that though, how about we use a convention
     String article = textFrom( "articles:steve_jobs.txt" ); // => res:uk/co/opsb/articles/steve_jobs.txt
     String report  = textFrom( "reports:q4_figures.txt" ); // => res:uk/co/opsb/reports/q4_figures.txt
     
-What a clever chap.
-
+What a clever chap. He's used the regex to capture articles/reports and then used String.format to merge them in.
