@@ -213,12 +213,14 @@ public class ButlerIO {
 			try {
 				in.close();
 			}
-			catch (IOException ex) {
+			catch (IOException e) {
+				throw new RuntimeException(e);
 			}
 			try {
 				out.close();
 			}
-			catch (IOException ex) {
+			catch (IOException e) {
+				throw new RuntimeException(e);
 			}
 		}
 	}
