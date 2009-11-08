@@ -99,12 +99,17 @@ Perhaps you've gotten used to using classpath:path/to/file with spring? Butler's
 Now you can simply do
 
     String article = textFrom( "classpath:articles/steve_jobs.txt" );
-    
-In fact the classpath: alias comes preregistered so you don't even need to worry about adding this one.
 
-How about something a bit smarter
+Maybe you often need to ask for articles in the same place
 
     ButlerIO.alias( "articles:", "res://path/to/articles/" );
     String article = textFrom( "articles:steve_jobs.txt" );
     
+Not bad, he can do better than that though, how about we use a convention
+
+    ButlerIO.alias( "^(\\w*):", "res:uk/co/opsb/%s/" );
+    String article = textFrom( "articles:steve_jobs.txt" ); // => res:uk/co/opsb/articles/steve_jobs.txt
+    String report  = textFrom( "reports:q4_figures.txt" ); // => res:uk/co/opsb/reports/q4_figures.txt
+    
 What a clever chap.
+
