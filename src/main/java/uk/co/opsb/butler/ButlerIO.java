@@ -27,9 +27,6 @@ public class ButlerIO {
 	private static FileSystemManager fileSystemManager;
 
 	private static Map<String, String> aliases = new HashMap<String, String>();
-	static {
-		alias("classpath:", "res:");
-	}
 	
 	private static FileSystemManager getFsManager() {
 		try {

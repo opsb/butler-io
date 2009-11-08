@@ -109,12 +109,7 @@ public class ButlerIOSpec {
 	
 	@Test
 	public void shouldResolveAliasesForVfsProtocol() {
-		ButlerIO.alias("classpath_location", "res");
-		assertThat(utf8From("classpath_location:" + CLASSPATH_LOCATION), equalTo(EXPECTED_FILE_CONTENTS));
-	}
-	
-	@Test
-	public void shouldResolveClasspathAlias() {
+		ButlerIO.alias("classpath", "res");
 		assertThat(utf8From("classpath:" + CLASSPATH_LOCATION), equalTo(EXPECTED_FILE_CONTENTS));
 	}
 	
