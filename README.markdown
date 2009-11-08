@@ -21,7 +21,7 @@ from
 Installation
 ------------
 
-#### Maven repo
+Just update your maven settings with
 
     <repository>
     	<id>opsbreleases</id>
@@ -29,7 +29,7 @@ Installation
     	<url>http://opsb.co.uk/nexus/content/repositories/releases/</url>
     </repository>
 
-#### Dependency
+and
 
     <dependency>
       <groupId>uk.co.opsb</groupId>
