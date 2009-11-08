@@ -49,4 +49,18 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<distributionManagement>
+		<repository>
+			<id>opsb-releases</id>
+			<url>http://opsb.co.uk/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>opsb-snapshots</id>
+			<url>http://opsb.co.uk/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>	
+	<scm>
+		<connection>scm:git:git://github.com/opsb/butlers-io.git</connection>
+		<url>scm:git:git://github.com/opsb/butlers-io.git</url>
+	</scm>	
 </project>
