@@ -62,7 +62,7 @@ Now let's put him to task
     byte [] fromUtf8File           = bytesFrom( "file:///path/to/steve_jobs.txt" );
     byte [] fromUtf8FileOnWindows  = bytesFrom( "file:///c:/path/to/steve_jobs.txt" );
     byte [] fromInputStream        = bytesFrom( inputStream );
-    byte [] overHttpUsingVfs      = bytesFrom( "https://domain_name.com/article.txt" );
+    byte [] overHttpUsingVfs       = bytesFrom( "https://domain_name.com/article.txt" );
     byte [] fromSftpGzipUsingVfs   = bytesFrom( "gz:sftp://username:password@domain_name.com/file.txt.gz" );   
     byte [] fromFileNextToClass    = bytesFrom( "name_of_file_in_same_package_as", YourClass.class );     
     
