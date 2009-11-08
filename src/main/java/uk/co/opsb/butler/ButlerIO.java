@@ -11,8 +11,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.vfs.FileContent;
 import org.apache.commons.vfs.FileObject;
@@ -22,17 +20,13 @@ import org.apache.commons.vfs.VFS;
 
 public class ButlerIO {
 
-	private static final String PROTOCOL_REGEX = "^(.*):";
-
-	private static final Pattern PROTOCOL_MATCHER = Pattern.compile(PROTOCOL_REGEX);
-
 	public static final int BUFFER_SIZE = 4096;
 	
 	private static FileSystemManager fileSystemManager;
 
 	private static Map<String, String> aliases = new HashMap<String, String>();
 	static {
-		alias("res", "classpath");
+		alias("classpath:", "res:");
 	}
 	
 	private static FileSystemManager getFsManager() {
@@ -56,21 +50,16 @@ public class ButlerIO {
 	}
 	
 	private static String withResolvedAlias(String vfsLocation) {
-		String protocol = protocolUsedIn(vfsLocation);
 		
-		if (aliases.containsKey(protocol)) {
-			String original = aliases.get(protocol);
-			vfsLocation = vfsLocation.replaceFirst(PROTOCOL_REGEX, original + ":");
+		for(String alias : aliases.keySet()) {
+			System.out.println("Checking " + alias);
+			if (vfsLocation.startsWith(alias)) {
+				System.out.println("replacing " + alias + " with " + aliases.get(alias));
+				vfsLocation = vfsLocation.replaceFirst(alias, aliases.get(alias));
+			}
 		}
-		 
+		
 		return vfsLocation;
-	}
-
-	private static String protocolUsedIn(String vfsLocation) {
-		Matcher matcher = PROTOCOL_MATCHER.matcher(vfsLocation);
-		if (!matcher.find()) throw new IllegalArgumentException("No protocol found for location " + vfsLocation);
-		String protocol = matcher.group(1);
-		return protocol;
 	}
 
 	private static FileContent getFileContent(String vfsLocation) {
@@ -225,8 +214,8 @@ public class ButlerIO {
 		}
 	}
 
-	public static void alias(String original, String alias) {
-		aliases.put(alias, original);
+	public static void alias(String original, String replacement) {
+		aliases.put(original, replacement);
 	}	
 	
 }

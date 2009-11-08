@@ -90,14 +90,21 @@ Now let's put him to task
     File fromClasspath          = fileFrom( "res:path/to/file" );
     File fromFileNextToClass    = fileFrom( "file_name", YourClass.class );
 
-## VFS Aliases
+## Aliases
 
 Perhaps you've gotten used to using classpath:path/to/file with spring? Butler's here to server, simply alias the res: protocol to classpath:
 
-    ButlerIO.alias( "res", "classpath" );
+    ButlerIO.alias( "classpath:", "res:" );
     
 Now you can simply do
 
     String article = textFrom( "classpath:articles/steve_jobs.txt" );
     
 In fact the classpath: alias comes preregistered so you don't even need to worry about adding this one.
+
+How about something a bit smarter
+
+    ButlerIO.alias( "articles:", "res://path/to/articles/" );
+    String article = textFrom( "articles:steve_jobs.txt" );
+    
+What a clever chap.
