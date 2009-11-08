@@ -3,7 +3,7 @@ Butler IO
 
 Some of those IO tasks can simply be the height of tedium. Why not ask the butler to take care of it? He's rather clever don't you know, he even understands a thing or two about that [apache VFS](http://commons.apache.org/vfs/ "apache VFS").
 
-Butler can fetch
+Butler will fetch
 
 * byte []
 * String
@@ -62,7 +62,7 @@ Now let's put him to task
     byte [] fromUtf8File           = bytesFrom( "file:///path/to/steve_jobs.txt" );
     byte [] fromUtf8FileOnWindows  = bytesFrom( "file:///c:/path/to/steve_jobs.txt" );
     byte [] fromInputStream        = bytesFrom( inputStream );
-    byte [] overHttpsUsingVfs      = bytesFrom( "https://username:password@domain_name.com/article.txt" );
+    byte [] overHttpUsingVfs      = bytesFrom( "https://domain_name.com/article.txt" );
     byte [] fromSftpGzipUsingVfs   = bytesFrom( "gz:sftp://username:password@domain_name.com/file.txt.gz" );   
     byte [] fromFileNextToClass    = bytesFrom( "name_of_file_in_same_package_as", YourClass.class );     
     
