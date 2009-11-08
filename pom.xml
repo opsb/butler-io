@@ -3,7 +3,7 @@
 	<groupId>uk.co.opsb</groupId>
 	<artifactId>butler-io</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1</version>
+	<version>0.2-SNAPSHOT</version>
 	<name>butler-io</name>
 	<url>http://maven.apache.org</url>
 	<build>
@@ -59,7 +59,7 @@
 		</snapshotRepository>
 	</distributionManagement>	
 	<scm>
-		<connection>scm:git:git://github.com/opsb/butlers-io.git</connection>
-		<url>scm:git:git://github.com/opsb/butlers-io.git</url>
+		<connection>scm:git:git://github.com/opsb/butler-io.git</connection>
+		<url>scm:git:git://github.com/opsb/butler-io.git</url>
 	</scm>	
 </project>
