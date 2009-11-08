@@ -98,12 +98,12 @@ Perhaps you've gotten used to using classpath:path/to/file with spring? Butler's
     
 Now you can simply do
 
-    String article = textFrom( "classpath:articles/steve_jobs.txt" );
+    String article = textFrom( "classpath:articles/steve_jobs.txt" ); // => res:articles/steve_jobs.txt
 
 Maybe you often need to ask for articles in the same place
 
     ButlerIO.alias( "articles:", "res://path/to/articles/" );
-    String article = textFrom( "articles:steve_jobs.txt" );
+    String article = textFrom( "articles:steve_jobs.txt" ); // => res://path/to/articles/steve_jobs.txt
     
 Not bad, he can do better than that though, how about we use a convention
 
