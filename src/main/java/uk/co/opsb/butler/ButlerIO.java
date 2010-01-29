@@ -8,12 +8,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.commons.vfs.FileContent;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
@@ -22,11 +29,31 @@ import org.apache.commons.vfs.VFS;
 
 public class ButlerIO {
 
+	private static Log logger = LogFactory.getLog(ButlerIO.class);
+	
 	public static final int BUFFER_SIZE = 4096;
 	
 	private static FileSystemManager fileSystemManager;
 
 	private static Map<String, String> aliases = new HashMap<String, String>();
+	
+	static {
+		loadAliases();
+	}
+	
+	private static void loadAliases() {
+		Properties properties = new Properties() ;
+		
+		try {
+			URL url =  resolveFile("res:butler_aliases.properties", false).getURL();
+			properties.load(new FileInputStream(new File(url.getFile())));
+			for(Map.Entry<Object, Object> entry : properties.entrySet()) {
+				alias(entry.getKey().toString(), entry.getValue().toString());
+			}
+		} catch (Exception e) {
+			logger.debug("No butler properties provided");
+		}
+	}
 	
 	private static FileSystemManager getFsManager() {
 		try {
@@ -39,10 +66,10 @@ public class ButlerIO {
 		return fileSystemManager;
 	}
 	
-	private static FileObject resolveFile(String vfsLocation) {
+	private static FileObject resolveFile(String vfsLocation, boolean resolveAliases) {
 		
 		try {
-			return getFsManager().resolveFile(withResolvedAlias(vfsLocation));
+			return getFsManager().resolveFile(resolveAliases? withResolvedAlias(vfsLocation) : vfsLocation);
 		} catch (FileSystemException e) {
 			throw new RuntimeException(e);
 		}
@@ -50,29 +77,44 @@ public class ButlerIO {
 	
 	private static String withResolvedAlias(String vfsLocation) {
 
-		for (String alias : aliases.keySet()) {
+		if (notStandardProtocol(vfsLocation)) {
+			for (String alias : aliases.keySet()) {
+				Matcher matcher = Pattern.compile(alias).matcher(vfsLocation);
+				if (matcher.find()) {
 		
-			Matcher matcher = Pattern.compile(alias).matcher(vfsLocation);
-			if (matcher.find()) {
-	
-				Object [] groups = new String[matcher.groupCount()];
-				for(int i = 0; i < matcher.groupCount(); i++) {
-					groups[i] = matcher.group(i + 1);
-				}
+					Object [] groups = new String[matcher.groupCount()];
+					for(int i = 0; i < matcher.groupCount(); i++) {
+						groups[i] = matcher.group(i + 1);
+					}
+					
+					String withAliasResolved = String.format(vfsLocation.replaceFirst(alias, aliases.get(alias)), groups);
+					
+					return withAliasResolved;
 				
-				String withAliasResolved = String.format(vfsLocation.replaceFirst(alias, aliases.get(alias)), groups);
-				return withAliasResolved;
+				}
 			
 			}
-		
+			
 		}
 		
 		return vfsLocation;
 	}
+	
+	private static boolean notStandardProtocol(String vfsLocation) {
+		
+		for(String scheme : getFsManager().getSchemes()) {
+			if (vfsLocation.startsWith(scheme + ":")) {
+				return false;
+			}
+		}
+		
+		return true;
+		
+	}
 
 	private static FileContent getFileContent(String vfsLocation) {
 		try {
-			return resolveFile(vfsLocation).getContent();
+			return resolveFile(vfsLocation, true).getContent();
 		} catch (FileSystemException e) {
 			throw new RuntimeException(e);
 		} 
@@ -184,7 +226,7 @@ public class ButlerIO {
 	
 	public static File fileAt(String classpathLocation) {
 		try {
-			return new File(resolveFile("res:" + classpathLocation).getURL().getFile());
+			return new File(resolveFile("res:" + classpathLocation, true).getURL().getFile());
 		} catch (FileSystemException e) {
 			throw new RuntimeException(e);
 		}

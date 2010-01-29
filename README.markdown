@@ -109,6 +109,12 @@ Not bad, he can do better than that though, how about we use a convention
 
     ButlerIO.alias( "^(\\w*):", "res:uk/co/opsb/%s/" );
     String article = textFrom( "articles:steve_jobs.txt" ); // => res:uk/co/opsb/articles/steve_jobs.txt
-    String report  = textFrom( "reports:q4_figures.txt" ); // => res:uk/co/opsb/reports/q4_figures.txt
+    String report  = textFrom( "reports:q4_figures.txt" ); // => res:uk/co/opsb/reports/q4_figures.txt    
     
 What a clever chap. He's used the regex to capture articles/reports and then used String.format to merge them in.
+
+You don't want to have to constantly tell him what to do, why not keep a record for him to refer to. Pop this in {classpath_root}/butler_aliases.properties
+
+    ^(\\w*)\:=res:uk/co/opsb/%s/
+
+and he'll know exactly what to do every time. Those property files can be tricky little fellows sometimes, mind that you escape any semi colons in the above manner (before the equals).
