@@ -92,29 +92,22 @@ Now let's put him to task
 
 ## Aliases
 
-Perhaps you've gotten used to using classpath:path/to/file with spring? Butler's here to server, simply alias the res: protocol to classpath:
+I often need to fetch articles and reports from the same places. I don't know about you but I rather like my butler to show a little initiative.
 
-    ButlerIO.alias( "classpath:", "res:" );
+    #Inside a file at {classpath}/butler_aliases.properties
+    articles\:=res://path/to/articles    # remember to escape any colons you use before the equals
+    reports\:=res://path/to/reports
     
-Now you can simply do
+Now when I ask for articles and reports he'll know just what to do
 
-    String article = textFrom( "classpath:articles/steve_jobs.txt" ); // => res:articles/steve_jobs.txt
+    String article = textFrom( "articles:steve_jobs.txt" ); // => res:path/to/articles/steve_jobs.txt
+    String report  = textFrom( "reports:q4_figures.txt" ); // => res:path/to/reports/q4_figures.txt
 
-Maybe you often need to ask for articles in the same place
-
-    ButlerIO.alias( "articles:", "res://path/to/articles/" );
-    String article = textFrom( "articles:steve_jobs.txt" ); // => res://path/to/articles/steve_jobs.txt
-    
-Not bad, he can do better than that though, how about we use a convention
-
-    ButlerIO.alias( "^(\\w*):", "res:uk/co/opsb/%s/" );
-    String article = textFrom( "articles:steve_jobs.txt" ); // => res:uk/co/opsb/articles/steve_jobs.txt
-    String report  = textFrom( "reports:q4_figures.txt" ); // => res:uk/co/opsb/reports/q4_figures.txt    
-    
-What a clever chap. He's used the regex to capture articles/reports and then used String.format to merge them in.
-
-You don't want to have to constantly tell him what to do, why not keep a record for him to refer to. Pop this in {classpath_root}/butler_aliases.properties
+Marvellous. He can do better than that though, how about we use a convention
 
     ^(\\w*)\:=res:uk/co/opsb/%s/
+    
+    String article = textFrom( "articles:steve_jobs.txt" ); // => res:uk/co/opsb/articles/steve_jobs.txt
+    String report  = textFrom( "reports:q4_figures.txt" ); // => res:uk/co/opsb/reports/q4_figures.txt
 
-and he'll know exactly what to do every time. Those property files can be tricky little fellows sometimes, mind that you escape any semi colons in the above manner (before the equals).
+What a clever chap. He's used the regex to capture articles/reports and then String.format to merge them in.
