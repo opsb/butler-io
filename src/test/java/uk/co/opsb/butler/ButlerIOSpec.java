@@ -12,7 +12,10 @@ import static uk.co.opsb.butler.ButlerIO.write;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
 
 import org.junit.Test;
@@ -109,20 +112,7 @@ public class ButlerIOSpec {
 	}
 	
 	@Test
-	public void shouldResolveAliasesForVfsProtocol() {
-		ButlerIO.alias("classpath:", "res:");
-		assertThat(utf8From("classpath:" + CLASSPATH_LOCATION), equalTo(EXPECTED_FILE_CONTENTS));
-	}
-	
-	@Test
-	public void shouldResolveAliasForCommonLocation() {
-		ButlerIO.alias("butler:", "res:uk/co/opsb/butler/");
-		assertThat(utf8From("butler:" + FILE_NAME), equalTo(EXPECTED_FILE_CONTENTS));
-	}
-	
-	@Test
 	public void shouldResolveRuleBasedAliasForLocation() {
-		ButlerIO.alias("^(\\w*)", "res:uk/co/opsb/%s/");
 		assertThat(utf8From("butler:" + FILE_NAME), equalTo(EXPECTED_FILE_CONTENTS));
 	}
 	
@@ -151,6 +141,18 @@ public class ButlerIOSpec {
 		write(bytes, vfsLocation);
 		
 		assertThat(bytesFrom(vfsLocation), equalTo(bytes));
+	}
+	
+	@Test
+	public void shouldWriteTextToOutputStream() throws FileNotFoundException {
+		
+		String text = "bring me my slippers";
+		OutputStream out = new FileOutputStream("/tmp/text_out_test");
+		
+		write(text, out);
+		
+		assertThat(textFrom("file:///tmp/text_out_test"), equalTo(text));
+		
 	}
 	
 }

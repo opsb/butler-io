@@ -9,13 +9,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -91,7 +87,8 @@ public class ButlerIO {
 						groups[i] = matcher.group(i + 1);
 					}
 					
-					String withAliasResolved = String.format(vfsLocation.replaceFirst(alias, aliases.get(alias)), groups);
+					String replacement = String.format(aliases.get(alias), groups);
+					String withAliasResolved = vfsLocation.replaceFirst(alias, replacement);
 					
 					return withAliasResolved;
 				
@@ -268,27 +265,37 @@ public class ButlerIO {
 		}
 	}
 
-	public static void alias(String original, String replacement) {
+	private static void alias(String original, String replacement) {
 		aliases.put(original, replacement);
 	}	
-	
+
 	static void clearAliases() {
 		aliases.clear();
 	}
 	
 	public static void write(byte [] bytes, String vfsLocation) {
-		FileObject target = resolveFile(vfsLocation);
 		try {
-			OutputStream out = target.getContent().getOutputStream();
-			out.write(bytes);
-			out.close();
-		} catch (Exception e) {
+			write(bytes, resolveFile(vfsLocation).getContent().getOutputStream());
+		} catch (FileSystemException e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
 	public static void write(String text, String vfsLocation) {
 		write(text.getBytes(), vfsLocation);
+	}
+	
+	public static void write(String text, OutputStream out) {
+		write(text.getBytes(), out);
+	}
+	
+	public static void write(byte [] bytes, OutputStream out) {
+		try {
+			out.write(bytes);
+			out.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 }
