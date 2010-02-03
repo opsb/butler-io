@@ -56,6 +56,10 @@ Now let's put him to task
     String fromFtpZipUsingVfs     = textFrom( "zip:ftp://username:password@domain_name.com/file.txt.zip" );
     String fromFileNextToClass    = textFrom( "name_of_file_in_same_package_as", YourClass.class );
 
+### Writing text
+
+    write("some text", "tmp://text_file.txt");
+
 ### Fetching bytes
 
     byte [] fromClasspath          = bytesFrom( "res:articles/steve_jobs.txt" );
@@ -65,6 +69,10 @@ Now let's put him to task
     byte [] overHttpUsingVfs       = bytesFrom( "https://domain_name.com/article.txt" );
     byte [] fromSftpGzipUsingVfs   = bytesFrom( "gz:sftp://username:password@domain_name.com/file.txt.gz" );   
     byte [] fromFileNextToClass    = bytesFrom( "name_of_file_in_same_package_as", YourClass.class );     
+    
+### Writing bytes
+
+    write(image.getBytes(), "tmp://image.jpg");    
     
 ### Fetching properties
 
