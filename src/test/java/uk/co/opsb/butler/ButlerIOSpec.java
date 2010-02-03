@@ -8,6 +8,7 @@ import static uk.co.opsb.butler.ButlerIO.fileAt;
 import static uk.co.opsb.butler.ButlerIO.propertiesFrom;
 import static uk.co.opsb.butler.ButlerIO.textFrom;
 import static uk.co.opsb.butler.ButlerIO.utf8From;
+import static uk.co.opsb.butler.ButlerIO.write;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -128,6 +129,28 @@ public class ButlerIOSpec {
 	@Test
 	public void shouldResolveAliasesFromButlerProperties() {
 		assertThat(utf8From("reports:" + FILE_NAME), equalTo(EXPECTED_FILE_CONTENTS));
+	}
+	
+	@Test
+	public void shouldWriteTextToVfsLocation() {
+		
+		String message = "bring me my slippers";
+		String vfsLocation = "tmp://message.txt";
+		
+		write(message, vfsLocation);
+		
+		assertThat(textFrom(vfsLocation), equalTo(message));
+	}
+	
+	@Test
+	public void shouldWriteBytesToVfsLocation() {
+		
+		byte [] content = "bring me my slippers".getBytes();
+		String vfsLocation = "tmp://message.txt";
+		
+		write(content, vfsLocation);
+		
+		assertThat(bytesFrom(vfsLocation), equalTo(content));
 	}
 	
 }

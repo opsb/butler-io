@@ -66,6 +66,10 @@ public class ButlerIO {
 		return fileSystemManager;
 	}
 	
+	private static FileObject resolveFile(String vfsLocation) {
+		return resolveFile(vfsLocation, true);
+	}
+	
 	private static FileObject resolveFile(String vfsLocation, boolean resolveAliases) {
 		
 		try {
@@ -270,6 +274,21 @@ public class ButlerIO {
 	
 	static void clearAliases() {
 		aliases.clear();
+	}
+	
+	public static void write(byte [] bytes, String vfsLocation) {
+		FileObject target = resolveFile(vfsLocation);
+		try {
+			OutputStream out = target.getContent().getOutputStream();
+			out.write(bytes);
+			out.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public static void write(String text, String vfsLocation) {
+		write(text.getBytes(), vfsLocation);
 	}
 	
 }
