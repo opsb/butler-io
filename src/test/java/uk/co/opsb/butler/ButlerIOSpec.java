@@ -134,23 +134,23 @@ public class ButlerIOSpec {
 	@Test
 	public void shouldWriteTextToVfsLocation() {
 		
-		String message = "bring me my slippers";
+		String text = "bring me my slippers";
 		String vfsLocation = "tmp://message.txt";
 		
-		write(message, vfsLocation);
+		write(text, vfsLocation);
 		
-		assertThat(textFrom(vfsLocation), equalTo(message));
+		assertThat(textFrom(vfsLocation), equalTo(text));
 	}
 	
 	@Test
 	public void shouldWriteBytesToVfsLocation() {
 		
-		byte [] content = "bring me my slippers".getBytes();
+		byte [] bytes = "bring me my slippers".getBytes();
 		String vfsLocation = "tmp://message.txt";
 		
-		write(content, vfsLocation);
+		write(bytes, vfsLocation);
 		
-		assertThat(bytesFrom(vfsLocation), equalTo(content));
+		assertThat(bytesFrom(vfsLocation), equalTo(bytes));
 	}
 	
 }
