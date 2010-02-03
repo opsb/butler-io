@@ -26,7 +26,7 @@ Just update your maven settings with
     <repository>
     	<id>opsbreleases</id>
     	<name>opsb-releases</name>
-    	<url>http://opsb.co.uk/nexus/content/repositories/releases/</url>
+    	<url>http://opsb.co.uk/nexus/content/repositories/snapshots/</url>
     </repository>
 
 and
@@ -34,7 +34,7 @@ and
     <dependency>
       <groupId>uk.co.opsb</groupId>
       <artifactId>butler-io</artifactId>
-      <version>0.3</version>
+      <version>0.4-SNAPSHOT/version>
     </dependency>
 
 Usage
