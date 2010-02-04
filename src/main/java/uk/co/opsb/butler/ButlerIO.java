@@ -57,7 +57,7 @@ public class ButlerIO {
 				fileSystemManager = VFS.getManager();
 			}
 		} catch (FileSystemException e) {
-			throw new RuntimeException(e);
+			throw new uk.co.opsb.butler.IOException(e);
 		}
 		return fileSystemManager;
 	}
@@ -71,7 +71,7 @@ public class ButlerIO {
 		try {
 			return getFsManager().resolveFile(resolveAliases? withResolvedAlias(vfsLocation) : vfsLocation);
 		} catch (FileSystemException e) {
-			throw new RuntimeException(e);
+			throw new uk.co.opsb.butler.IOException(e);
 		}
 	}
 	
@@ -117,7 +117,7 @@ public class ButlerIO {
 		try {
 			return resolveFile(vfsLocation, true).getContent();
 		} catch (FileSystemException e) {
-			throw new RuntimeException(e);
+			throw new uk.co.opsb.butler.IOException(e);
 		} 
 	}
 	
@@ -141,7 +141,7 @@ public class ButlerIO {
 		try {
 			return new String(bytesFrom(file), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
+			throw new uk.co.opsb.butler.IOException(e);
 		}
 	}
 	
@@ -149,7 +149,7 @@ public class ButlerIO {
 		try {
 			return new String(bytesFrom(inputStream), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
+			throw new uk.co.opsb.butler.IOException(e);
 		}
 	}
 	
@@ -157,7 +157,7 @@ public class ButlerIO {
 		try {
 			return new String(bytesFrom(vfsLocation), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
+			throw new uk.co.opsb.butler.IOException(e);
 		}
 	}
 	
@@ -171,7 +171,7 @@ public class ButlerIO {
 			copy(inputStream, out);
 			return out.toByteArray();
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			throw new uk.co.opsb.butler.IOException(e);
 		}
 	}
 	
@@ -183,7 +183,7 @@ public class ButlerIO {
 		try {
 			return bytesFrom( new FileInputStream( file ) );
 		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
+			throw new uk.co.opsb.butler.IOException(e);
 		}
 	}
 	
@@ -204,7 +204,7 @@ public class ButlerIO {
 		try {
 			properties.load(inputStream);
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			throw new uk.co.opsb.butler.IOException(e);
 		}
 		return properties;
 	}
@@ -213,7 +213,7 @@ public class ButlerIO {
 		try {
 			return getFileContent(vfsLocation).getInputStream();
 		} catch (FileSystemException e) {
-			throw new RuntimeException(e);
+			throw new uk.co.opsb.butler.IOException(e);
 		}
 	}
 	
@@ -221,7 +221,7 @@ public class ButlerIO {
 		try {
 			return new FileInputStream(file);
 		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
+			throw new uk.co.opsb.butler.IOException(e);
 		}
 	}
 	
@@ -229,7 +229,7 @@ public class ButlerIO {
 		try {
 			return new File(resolveFile("res:" + classpathLocation, true).getURL().getFile());
 		} catch (FileSystemException e) {
-			throw new RuntimeException(e);
+			throw new uk.co.opsb.butler.IOException(e);
 		}
 	}
 	
@@ -254,13 +254,13 @@ public class ButlerIO {
 				in.close();
 			}
 			catch (IOException e) {
-				throw new RuntimeException(e);
+				throw new uk.co.opsb.butler.IOException(e);
 			}
 			try {
 				out.close();
 			}
 			catch (IOException e) {
-				throw new RuntimeException(e);
+				throw new uk.co.opsb.butler.IOException(e);
 			}
 		}
 	}
@@ -277,7 +277,7 @@ public class ButlerIO {
 		try {
 			write(bytes, resolveFile(vfsLocation).getContent().getOutputStream());
 		} catch (FileSystemException e) {
-			throw new RuntimeException(e);
+			throw new uk.co.opsb.butler.IOException(e);
 		}
 	}
 	
@@ -294,7 +294,7 @@ public class ButlerIO {
 			out.write(bytes);
 			out.close();
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new uk.co.opsb.butler.IOException(e);
 		}
 	}
 	
