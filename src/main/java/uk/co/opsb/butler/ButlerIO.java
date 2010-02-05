@@ -121,22 +121,53 @@ public class ButlerIO {
 		} 
 	}
 	
+	/**
+	 * 
+	 * @param inputStream The InputStream containing the text
+	 * @return A String containing the text from the InputStream
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static String textFrom(InputStream inputStream) {
 		return new String(bytesFrom(inputStream));
 	}
 	
+	/**
+	 * 
+	 * @param vfsLocation The VFS location containing the text
+	 * @return A String containing the text
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static String textFrom(String vfsLocation) {
 		return new String(bytesFrom(vfsLocation));
 	}
 	
+	/**
+	 * 
+	 * @param file The file containing the text
+	 * @return A String containing the text
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static String textFrom(File file) {
 		return new String(bytesFrom(file));
 	}
 	
+	/**
+	 * 
+	 * @param name Name of file containing text
+	 * @param classInSamePackage Class in same package as file containing text
+	 * @return A String containing the text
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static String textFrom(String name, Class<? extends Object> classInSamePackage) {
 		return textFrom(classInSamePackage.getResourceAsStream(name));
 	}
 	
+	/**
+	 * 
+	 * @param file File containing the text
+	 * @return A utf8 encoded String
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static String utf8From(File file) {
 		try {
 			return new String(bytesFrom(file), "UTF-8");
@@ -145,6 +176,12 @@ public class ButlerIO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param inputStream The InputStream containing the text
+	 * @return A utf8 encoded String
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static String utf8From(InputStream inputStream) {
 		try {
 			return new String(bytesFrom(inputStream), "UTF-8");
@@ -153,6 +190,12 @@ public class ButlerIO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param vfsLocation The VFS location containing the text
+	 * @return A utf8 encoded String
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static String utf8From(String vfsLocation) {
 		try {
 			return new String(bytesFrom(vfsLocation), "UTF-8");
@@ -161,10 +204,23 @@ public class ButlerIO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param name Name of file containing text
+	 * @param classInSamePackage Class in same package as file containing text
+	 * @return A utf8 encoded String
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static String utf8From(String name, Class<? extends Object> classInSamePackage) {
 		return utf8From(classInSamePackage.getResourceAsStream(name));
 	}
 	
+	/**
+	 * 
+	 * @param inputStream InputStream to read from
+	 * @return byte array containing contents of InputStream
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static byte [] bytesFrom(InputStream inputStream) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream(BUFFER_SIZE);
 		try {
@@ -175,10 +231,22 @@ public class ButlerIO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param vfsLocation The VFS location containing the text
+	 * @return byte array containing contents of InputStream
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static byte [] bytesFrom(String vfsLocation) {
 		return bytesFrom( inputStreamFrom( vfsLocation ) );
 	}
 	
+	/**
+	 * 
+	 * @param file File containing the bytes
+	 * @return byte array containing contents of InputStream
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static byte [] bytesFrom(File file) {
 		try {
 			return bytesFrom( new FileInputStream( file ) );
@@ -187,18 +255,43 @@ public class ButlerIO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param name Name of file containing text
+	 * @param classInSamePackage Class in same package as file containing text
+	 * @return byte array containing contents of InputStream
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static byte [] bytesFrom(String name, Class<? extends Object> classInSamePackage) {
 		return bytesFrom(classInSamePackage.getResourceAsStream(name));
 	}
 	
+	/**
+	 * 
+	 * @param vfsLocation VFS location containing the properties
+	 * @return Properties from vfsLocation
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static Properties propertiesFrom(String vfsLocation) {
 		return propertiesFrom(inputStreamFrom(vfsLocation));
 	}
 	
+	/**
+	 * 
+	 * @param file File containing properties
+	 * @return Properties from File
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static Properties propertiesFrom(File file) {
 		return propertiesFrom(inputStreamFrom(file));
 	}
 	
+	/**
+	 * 
+	 * @param inputStream InputStream to read from
+	 * @return Properties from InputStream
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static Properties propertiesFrom(InputStream inputStream) {
 		Properties properties = new Properties();
 		try {
@@ -209,6 +302,12 @@ public class ButlerIO {
 		return properties;
 	}
 	
+	/**
+	 * 
+	 * @param vfsLocation VFS location to read from
+	 * @return InputStream for VFS location
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static InputStream inputStreamFrom(String vfsLocation) {
 		try {
 			return getFileContent(vfsLocation).getInputStream();
@@ -217,6 +316,12 @@ public class ButlerIO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param file File to read from
+	 * @return InputStream for File
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static InputStream inputStreamFrom(File file) {
 		try {
 			return new FileInputStream(file);
@@ -225,6 +330,12 @@ public class ButlerIO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param classpathLocation Location in classpath
+	 * @return File
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static File fileAt(String classpathLocation) {
 		try {
 			return new File(resolveFile("res:" + classpathLocation, true).getURL().getFile());
@@ -233,6 +344,13 @@ public class ButlerIO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param name Name of file to read from
+	 * @param classInSamePackage Class in same package as file to read from
+	 * @return File
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static File fileAt(String name, Class<? extends Object> classInSamePackage) {
 		return new File(classInSamePackage.getResource(name).getFile());
 	}
@@ -273,6 +391,12 @@ public class ButlerIO {
 		aliases.clear();
 	}
 	
+	/**
+	 * 
+	 * @param bytes byte array to write
+	 * @param vfsLocation VFS location to write to
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static void write(byte [] bytes, String vfsLocation) {
 		try {
 			write(bytes, resolveFile(vfsLocation).getContent().getOutputStream());
@@ -281,14 +405,32 @@ public class ButlerIO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param text Text to write
+	 * @param vfsLocation VFS location to write to
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static void write(String text, String vfsLocation) {
 		write(text.getBytes(), vfsLocation);
 	}
 	
+	/**
+	 * 
+	 * @param text Text to write
+	 * @param out OutputStream to write to
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static void write(String text, OutputStream out) {
 		write(text.getBytes(), out);
 	}
 	
+	/**
+	 * 
+	 * @param bytes byte array to write
+	 * @param out OutputStream to write to
+	 * @throws uk.co.opsb.butler.IOException - If an I/O error occurs
+	 */
 	public static void write(byte [] bytes, OutputStream out) {
 		try {
 			out.write(bytes);
