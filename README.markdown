@@ -58,8 +58,9 @@ Now let's put him to task
 
 ### Writing text
 
-    write("some text", "tmp://text_file.txt");
-
+    write( "some text", "tmp://text_file.txt" );
+    writeUtf8( "some text", "tmp://utf8_text_file.txt" );
+    
 ### Fetching bytes
 
     byte [] fromClasspath          = bytesFrom( "res:articles/steve_jobs.txt" );
@@ -72,7 +73,7 @@ Now let's put him to task
     
 ### Writing bytes
 
-    write(image.getBytes(), "tmp://image.jpg");    
+    write( image.getBytes(), "tmp://image.jpg" );
     
 ### Fetching properties
 
