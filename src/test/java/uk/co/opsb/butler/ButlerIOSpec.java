@@ -9,6 +9,7 @@ import static uk.co.opsb.butler.ButlerIO.propertiesFrom;
 import static uk.co.opsb.butler.ButlerIO.textFrom;
 import static uk.co.opsb.butler.ButlerIO.utf8From;
 import static uk.co.opsb.butler.ButlerIO.write;
+import static uk.co.opsb.butler.ButlerIO.writeUtf8;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -150,6 +151,18 @@ public class ButlerIOSpec {
 		OutputStream out = new FileOutputStream("/tmp/text_out_test");
 		
 		write(text, out);
+		
+		assertThat(textFrom("file:///tmp/text_out_test"), equalTo(text));
+		
+	}
+	
+	@Test
+	public void shouldWriteUtf8ToOutputStream() throws FileNotFoundException {
+		
+		String text = "bring me my slippers";
+		OutputStream out = new FileOutputStream("/tmp/text_out_test");
+		
+		writeUtf8(text, out);
 		
 		assertThat(textFrom("file:///tmp/text_out_test"), equalTo(text));
 		

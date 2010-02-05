@@ -425,6 +425,14 @@ public class ButlerIO {
 		write(text.getBytes(), out);
 	}
 	
+	public static void writeUtf8(String text, OutputStream out) {
+		try {
+			write(text.getBytes("UTF-8"), out);
+		} catch (UnsupportedEncodingException e) {
+			throw new uk.co.opsb.butler.IOException(e);
+		}
+	}
+	
 	/**
 	 * 
 	 * @param bytes byte array to write
