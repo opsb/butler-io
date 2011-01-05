@@ -3,7 +3,7 @@
 	<groupId>uk.co.opsb</groupId>
 	<artifactId>butler-io</artifactId>
 	<packaging>jar</packaging>
-	<version>0.4</version>
+	<version>0.5-SNAPSHOT</version>
 	<name>butler-io</name>
   <url>https://github.com/opsb/butler-io</url>
   <description>IO DSL built on apache VFS</description>
