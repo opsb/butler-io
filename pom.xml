@@ -65,8 +65,9 @@
 	</dependencies>
   
 	<scm>
-		<connection>scm:git:git://github.com/opsb/butler-io.git</connection>
-    <url>scm:git:git://github.com/opsb/butler-io.git</url>
+    <connection>scm:git:git@github.com:opsb/butler-io.git</connection>
+    <developerConnection>scm:git:git@github.com:opsb/butler-io.git</developerConnection>
+    <url>git@github.com:opsb/butler-io.git</url>
   </scm>	
 
   <developers>
