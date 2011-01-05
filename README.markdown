@@ -1,4 +1,4 @@
-You're looking at the docs for the latest development version. [These are the docs for latest release(0.3)](http://github.com/opsb/butler-io/tree/butler-io-0.4)
+You're looking at the docs for the latest development version. [These are the docs for latest release(0.4)](http://github.com/opsb/butler-io/tree/butler-io-0.4)
 
 Butler IO
 ============
