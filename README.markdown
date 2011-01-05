@@ -1,4 +1,4 @@
-You're looking at the docs for the latest development version. [These are the docs for latest release(0.3)](http://github.com/opsb/butler-io/tree/butler-io-0.3)
+You're looking at the docs for the latest development version. [These are the docs for latest release(0.3)](http://github.com/opsb/butler-io/tree/butler-io-0.4)
 
 Butler IO
 ============
@@ -23,20 +23,12 @@ from
 Installation
 ------------
 
-Just update your maven settings with
-
-    <repository>
-    	<id>opsbreleases</id>
-    	<name>opsb-releases</name>
-    	<url>http://opsb.co.uk/nexus/content/repositories/snapshots/</url>
-    </repository>
-
-and
+Just add the butler-io dependency to your maven settings with
 
     <dependency>
       <groupId>uk.co.opsb</groupId>
       <artifactId>butler-io</artifactId>
-      <version>0.4-SNAPSHOT/version>
+      <version>0.4</version>
     </dependency>
 
 Usage
